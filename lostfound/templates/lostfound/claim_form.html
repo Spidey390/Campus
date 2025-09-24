@@ -1,0 +1,14 @@
+{% extends 'lostfound/base.html' %}
+
+{% block content %}
+<h2>Submit a Claim for "{{ item.item_name }}"</h2>
+<p>To prove this item is yours, please provide a specific, non-obvious detail about it in the box below. For example,
+    "The phone has a crack on the bottom left corner" or "The book has my name written on page 10."</p>
+<hr>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary mt-3">Submit Claim</button>
+</form>
+{% endblock %}

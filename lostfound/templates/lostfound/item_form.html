@@ -1,0 +1,9 @@
+{% extends 'lostfound/base.html' %}
+{% block content %}
+<h2>Report a {{ status }} Item</h2>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{% endblock %}
