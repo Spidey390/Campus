@@ -1,0 +1,26 @@
+{% extends 'lostfound/base.html' %}
+{% block content %}
+<h2>My Dashboard</h2>
+<p>Welcome, {{ user.username }}!</p>
+<hr>
+<h4>My Reported Items</h4>
+{% for item in items %}
+<div class="card my-2">
+    <div class="card-body">
+        <h5 class="card-title">
+            {{ item.item_name }}
+            <span class="badge {% if item.status == 'Lost' %}bg-danger{% else %}bg-success{% endif %}">
+                {{ item.status }}
+            </span>
+        </h5>
+        <p class="card-text">{{ item.description|truncatewords:20 }}</p>
+        <a href="{% url 'item_detail' item.pk %}" class="btn btn-primary">View Details</a>
+        {% if item.status == 'Lost' %}
+        <a href="{% url 'find_matches' item.pk %}" class="btn btn-info">Find Matches</a>
+        {% endif %}
+    </div>
+</div>
+{% empty %}
+<p>You have not reported any items yet.</p>
+{% endfor %}
+{% endblock %}
