@@ -1,0 +1,27 @@
+{% extends 'lostfound/base.html' %}
+{% block content %}
+<div class="card">
+    <div class="card-body">
+        <h2 class="card-title">{{ item.item_name }}</h2>
+
+        {% if item.image %}
+        <img src="{{ item.image.url }}" class="img-fluid my-3" alt="{{ item.item_name }}">
+        {% endif %}
+
+        <p><strong>Description:</strong> {{ item.description }}</p>
+        <p><strong>Category:</strong> {{ item.category }}</p>
+        <p><strong>Location:</strong> {{ item.location }}</p>
+
+        <p>
+            <small class="text-muted">
+                Reported by: {{ item.reported_by.username }} on {{ item.reported_at|date:"d M Y" }}
+            </small>
+        </p>
+
+        {% if user.is_authenticated and item.status == 'Found' %}
+        <a href="{% url 'submit_claim' item.pk %}" class="btn btn-success mt-3">Claim This Item</a>
+        <p class="mt-2"><small>You will be asked to provide proof of ownership.</small></p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
